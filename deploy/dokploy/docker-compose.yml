@@ -1,0 +1,25 @@
+# Mailflare on Dokploy (Postor fork). Dokploy's Traefik terminates HTTPS and
+# routes the domain to port 3000, so nothing is published on the host.
+# Inbound mail arrives through Cloudflare Email Routing + the relay Worker
+# (deploy/cloudflare-email-relay), so the SMTP listener is off: no port 25.
+services:
+  mailflare:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${NEXT_PUBLIC_TURNSTILE_SITE_KEY:-}
+    restart: unless-stopped
+    expose:
+      - "3000"
+    env_file:
+      # Dokploy writes the Environment tab to .env next to this file.
+      - path: .env
+        required: false
+    environment:
+      SMTP_INBOUND_PORT: "0"
+    volumes:
+      - mailflare-data:/data
+
+volumes:
+  mailflare-data:
