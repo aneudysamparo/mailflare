@@ -15,9 +15,9 @@ Servicio aparte. **Nunca se mezcla con el código de Postor** (Mailflare es AGPL
    ```bash
    openssl rand -hex 32
    ```
-5. **Domains:** agrega el dominio (p. ej. `correo.postor.do`), servicio `mailflare`, puerto `3000` y HTTPS con Let's Encrypt. Activa WebSockets si Dokploy lo ofrece (los usa `/api/realtime`).
+5. **Domains:** agrega el dominio (p. ej. `mailflare.postor.do`), servicio `mailflare`, puerto `3000` y HTTPS con Let's Encrypt. Activa WebSockets si Dokploy lo ofrece (los usa `/api/realtime`).
 6. **Deploy.** El primer build tarda varios minutos (Next.js).
-7. Abre `https://correo.postor.do/setup` y crea la cuenta de administrador **enseguida** (la primera persona que entre a `/setup` queda como admin).
+7. Abre `https://mailflare.postor.do/setup` y crea la cuenta de administrador **enseguida** (la primera persona que entre a `/setup` queda como admin).
 
 Si el `.env` no se carga, pasa las mismas variables en la sección *Environment* del servicio. Dokploy las inyecta igual.
 
@@ -28,7 +28,7 @@ El dominio tiene que estar en Cloudflare.
 ```bash
 cd deploy/cloudflare-email-relay
 npm install
-npx wrangler secret put MAILFLARE_URL            # https://correo.postor.do
+npx wrangler secret put MAILFLARE_URL            # https://mailflare.postor.do
 npx wrangler secret put INBOUND_WEBHOOK_SECRET   # el mismo valor del paso 1.4
 npm run deploy
 ```
